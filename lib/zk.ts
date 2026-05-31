@@ -1,0 +1,1 @@
+export const zkPolicy = { statement: "Seller can prove verified-business status to buyers without exposing full tax records or owner PII.", nullifierProtection: true, capabilityGate: 'Check CAP-0059/CAP-0074/CAP-0075 support on the target network before production use.' };

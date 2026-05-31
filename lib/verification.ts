@@ -1,0 +1,4 @@
+import type {MvpRecord} from '@/data/project';
+export function deriveLocalHash(fields: readonly string[]): string { let h = 2166136261; for (const value of fields.join('|')) { h ^= value.charCodeAt(0); h = Math.imul(h, 16777619); } return Math.abs(h >>> 0).toString(16).padStart(8,'0') + '...local'; }
+export function statusTone(status: string): 'ok' | 'warn' | 'bad' { const s=status.toLowerCase(); if (s.includes('flag') || s.includes('breach') || s.includes('late') || s.includes('disputed') || s.includes('recalled') || s.includes('short')) return 'bad'; if (s.includes('pending') || s.includes('review') || s.includes('inspection') || s.includes('bidding') || s.includes('transit') || s.includes('mortgaged')) return 'warn'; return 'ok'; }
+export function verifyRecord(record: MvpRecord){ return { ok: statusTone(record.status) !== 'bad', expected: deriveLocalHash(record.fields), stored: record.hash }; }
